@@ -16,7 +16,7 @@
 #include "rfc2822/skipper.hpp"
 
 #define BOOST_TEST_MAIN
-#include <boost/test/unit_test.hpp>
+#include <boost/test/auto_unit_test.hpp>
 
 using namespace std;
 using namespace rfc2822;
