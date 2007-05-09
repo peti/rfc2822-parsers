@@ -15,7 +15,7 @@
 #include "rfc2822/date.hpp"
 #include "rfc2822/skipper.hpp"
 
-#define BOOST_TEST_MAIN
+#define BOOST_AUTO_TEST_MAIN
 #include <boost/test/auto_unit_test.hpp>
 
 using namespace std;
