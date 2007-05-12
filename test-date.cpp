@@ -10,10 +10,10 @@
  * provided the copyright notice and this notice are preserved.
  */
 
-#include <algorithm>
-#include <string>
 #include "rfc2822/date.hpp"
 #include "rfc2822/skipper.hpp"
+#include <algorithm>
+#include <string>
 
 #define BOOST_AUTO_TEST_MAIN
 #include <boost/test/auto_unit_test.hpp>
