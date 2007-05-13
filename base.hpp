@@ -37,22 +37,12 @@ namespace rfc2822               /// Internet Message Format Parsers
   spirit::chlit<> const sp_p(32); // ' '
   spirit::chset<> const wsp_p("\x09\x20");
 
-  /**
-   *  \brief foo
-   *
-   *   this is a test
-   */
   extern struct addr_spec_parser const addr_spec_p;
   /// \example test-address.cpp Parse e-mail addresses.
 
   extern struct route_addr_parser const route_addr_p;
   extern struct mailbox_parser const mailbox_p;
 
-  /**
-   *  \brief foo
-   *
-   *  claus
-   */
   extern struct date_parser const date_p;
   /// \example test-date.cpp Parse e-mail <code>Date:</code> header.
 
