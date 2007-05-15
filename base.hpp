@@ -90,7 +90,8 @@ namespace rfc2822
    *  <pre>
    *    mailbox       =  name-addr / addr-spec
    *    name-addr     =  [display-name] angle-addr
-   *    angle-addr    =  [CFWS] "<" addr-spec ">" [CFWS] / obs-angle-addr
+   *    angle-addr    =  [CFWS] "<" addr-spec ">" [CFWS] /
+   *                     obs-angle-addr
    *    display-name  =  phrase
    *    phrase        =  1*word / obs-phrase
    *  </pre>
