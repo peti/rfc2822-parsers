@@ -163,13 +163,13 @@ namespace rfc2822
    *    ctext     =  NO-WS-CTL / %d33-39 / %d42-91 / %d93-126
    *  </pre>
    *
-   *  \return A pair of iterators containing the match.
+   *  \return A pair of iterators designating the match.
    */
   extern struct comment_parser const comment_p;
 
   /**
    *  \brief Match a <code>'\\r\\n'</code>.
-   *  \return A pair of iterators containing the match.
+   *  \return A pair of iterators designating the match.
    */
   extern struct crlf_parser const crlf_p;
 
@@ -182,7 +182,7 @@ namespace rfc2822
    *                    "Sep" / "Oct" / "Nov" / "Dec"
    *  </pre>
    *
-   *  \return A pair of iterators containing the match.
+   *  \return An integer [0..11] to designate the month.
    */
   extern struct month_parser const month_p;
 
@@ -190,11 +190,11 @@ namespace rfc2822
    *  \brief Match a <code>day-name</code>.
    *
    *  <pre>
-   *    day-name =  "Mon" / "Tue" / "Wed" / "Thu" /
-   *                "Fri" / "Sat" / "Sun"
+   *    day-name =  "Sun" / "Mon" / "Tue" / "Wed" /
+   *                "Thu" / "Fri" / "Sat" /
    *  </pre>
    *
-   *  \return A pair of iterators containing the match.
+   *  \return An integer [0..6] to designate the weekday.
    */
   extern struct wday_parser const wday_p;
 
@@ -202,19 +202,20 @@ namespace rfc2822
    *  \brief Match a time <code>zone</code> specification.
    *
    *  <pre>
-   *    zone      =  (( "+" / "-" ) 4DIGIT) / obs-zone
-   *    obs-zone  =  "UT" / "GMT" / "EST" / "EDT" / "CST" / "CDT" /
-   *                 "MST" / "MDT" / "PST" / "PDT" / %d65-73 /
+   *    zone      =  (( "+" / "-" ) 4DIGIT) /
+   *                 "UT" / "GMT" / "EST" / "EDT" /
+   *                 "CST" / "CDT" / "MST" / "MDT" /
+   *                 "PST" / "PDT" / %d65-73 /
    *                 %d75-90 / %d97-105 / %d107-122
    *  </pre>
    *
-   *  \return A pair of iterators containing the match.
+   *  \return Number of seconds +/- relative to GMT.
    */
   extern struct timezone_parser const timezone_p;
 
   /**
    *  \brief Match a <code>([*WSP CRLF] 1*WSP)</code>.
-   *  \return A pair of iterators containing the match.
+   *  \return A pair of iterators designating the match.
    */
   extern struct lwsp_parser const lwsp_p;
 
@@ -225,13 +226,13 @@ namespace rfc2822
    *    *([FWS] comment) (([FWS] comment) / FWS)
    *  </pre>
    *
-   *  \return A pair of iterators containing the match.
+   *  \return A pair of iterators designating the match.
    */
   extern struct skipper const skipper_p;
 
   /**
    *  \brief Match <code>atom / quoted-string</code>.
-   *  \return A pair of iterators containing the match.
+   *  \return A pair of iterators designating the match.
    */
   extern struct word_parser const word_p;
 
@@ -246,7 +247,7 @@ namespace rfc2822
    *              "|" / "}" / "~"
    *  </pre>
    *
-   *  \return A pair of iterators containing the match.
+   *  \return A pair of iterators designating the match.
    */
   extern struct atom_parser const atom_p;
 
@@ -259,7 +260,7 @@ namespace rfc2822
    *    qtext          =  NO-WS-CTL / %d33 / %d35-91 / %d93-126
    *  </pre>
    *
-   *  \return A pair of iterators containing the match.
+   *  \return A pair of iterators designating the match.
    */
   extern struct quoted_string_parser const quoted_string_p;
 
@@ -272,7 +273,7 @@ namespace rfc2822
    *    obs-qp       =  "\" (%d0-127)
    *  </pre>
    *
-   *  \return A pair of iterators containing the match.
+   *  \return A pair of iterators designating the match.
    */
   extern struct quoted_pair_parser const quoted_pair_p;
 }
