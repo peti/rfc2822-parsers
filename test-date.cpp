@@ -13,7 +13,6 @@
 #include "rfc2822/date.hpp"
 #include "rfc2822/skipper.hpp"
 #include <algorithm>
-#include <string>
 
 #define BOOST_AUTO_TEST_MAIN
 #include <boost/test/auto_unit_test.hpp>
@@ -90,7 +89,7 @@ struct runner
     {
       tstamp -= offset_to_gmt;
       tmstamp = gmtime(&tstamp);
-      size_t len = strftime(buf, sizeof(buf), "%Y-%m-%d %T", tmstamp);
+      size_t len = strftime(buf, sizeof(buf), "%Y-%m-%d %H:%M:%S", tmstamp);
       BOOST_REQUIRE(len > 0);
       BOOST_REQUIRE(test.success);
       BOOST_REQUIRE_EQUAL(string(buf), string(test.output));
