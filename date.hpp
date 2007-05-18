@@ -17,7 +17,7 @@
 #include <boost/spirit/attribute/closure.hpp>
 #include <boost/spirit/symbols/symbols.hpp>
 #include <boost/spirit/phoenix/binders.hpp>
-#include <ctime>
+#include <boost/compatibility/cpp_c_headers/ctime>
 
 namespace rfc2822
 {
