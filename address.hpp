@@ -46,7 +46,6 @@ namespace rfc2822
           = word_p [self.val += construct_<std::string>(arg1, arg2)];
 
         BOOST_SPIRIT_DEBUG_NODE(local_part);
-        BOOST_SPIRIT_DEBUG_NODE(word);
       }
 
       spirit::rule<scannerT> const & start() const { return local_part; }

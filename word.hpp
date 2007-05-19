@@ -25,14 +25,16 @@ namespace rfc2822
     template<typename scannerT>
     struct definition
     {
-      spirit::rule<scannerT>    top;
+      spirit::rule<scannerT>    word;
 
       definition(word_parser const &)
       {
-        top = atom_p | quoted_string_p;
+        word = atom_p | quoted_string_p;
+        BOOST_SPIRIT_DEBUG_NODE(word);
+
       }
 
-      spirit::rule<scannerT> const & start() const { return top; }
+      spirit::rule<scannerT> const & start() const { return word; }
     };
   };
 
