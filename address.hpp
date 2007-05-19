@@ -44,6 +44,9 @@ namespace rfc2822
 
         word
           = word_p [self.val += construct_<std::string>(arg1, arg2)];
+
+        BOOST_SPIRIT_DEBUG_NODE(local_part);
+        BOOST_SPIRIT_DEBUG_NODE(word);
       }
 
       spirit::rule<scannerT> const & start() const { return local_part; }
@@ -84,6 +87,9 @@ namespace rfc2822
         quoted_pair
           = quoted_pair_p [ self.val += construct_<std::string>(arg1, arg2) ];
           ;
+
+        BOOST_SPIRIT_DEBUG_NODE(domain_literal);
+        BOOST_SPIRIT_DEBUG_NODE(dtext);
       }
 
       spirit::rule<scannerT> const & start() const { return domain_literal; }
@@ -111,8 +117,10 @@ namespace rfc2822
         domain      = sub_domain >> *( ch_p('.') [self.val += '.'] >> sub_domain );
 
         sub_domain  =  atom_p           [self.val += construct_<std::string>(arg1, arg2)]
-                    |  domain_literal_p [self.val += arg1]
-          ;
+                    |  domain_literal_p [self.val += arg1];
+
+        BOOST_SPIRIT_DEBUG_NODE(domain);
+        BOOST_SPIRIT_DEBUG_NODE(sub_domain);
       }
 
       const spirit::rule<scannerT>& start() const { return domain; }
@@ -132,21 +140,23 @@ namespace rfc2822
     template<typename scannerT>
     struct definition
     {
-      spirit::rule<scannerT>    top;
+      spirit::rule<scannerT>    addr_spec;
 
       definition(const addr_spec_parser& self)
       {
         using namespace spirit;
         using namespace phoenix;
 
-        top
+        addr_spec
           = local_part_p [self.val += arg1]
             >> ch_p('@') [self.val += '@']
             >> domain_p  [self.val += arg1]
           ;
+
+        BOOST_SPIRIT_DEBUG_NODE(addr_spec);
       }
 
-      spirit::rule<scannerT> const & start() const { return top; }
+      spirit::rule<scannerT> const & start() const { return addr_spec; }
     };
   };
 
@@ -188,6 +198,10 @@ namespace rfc2822
           = ch_p('@')           [self.val += '@' ]
             >> domain_p         [self.val += arg1]
           ;
+
+        BOOST_SPIRIT_DEBUG_NODE(route_addr);
+        BOOST_SPIRIT_DEBUG_NODE(route);
+        BOOST_SPIRIT_DEBUG_NODE(hop);
       }
 
       spirit::rule<scannerT> const & start() const { return route_addr; }
@@ -204,19 +218,21 @@ namespace rfc2822
     template<typename scannerT>
     struct definition
     {
-      spirit::rule<scannerT> top;
+      spirit::rule<scannerT> mailbox;
 
       definition(const mailbox_parser& self)
       {
         using namespace spirit;
         using namespace phoenix;
 
-        top = (   *word_p >> route_addr_p   [self.val += arg1]
-              |   addr_spec_p               [self.val += arg1]
-              );
+        mailbox = (   *word_p >> route_addr_p   [self.val += arg1]
+                  |   addr_spec_p               [self.val += arg1]
+                  );
+
+        BOOST_SPIRIT_DEBUG_NODE(mailbox);
       }
 
-      spirit::rule<scannerT> const & start() const { return top; }
+      spirit::rule<scannerT> const & start() const { return mailbox; }
     };
   };
 

@@ -24,15 +24,17 @@ namespace rfc2822
     template<typename scannerT>
     struct definition
     {
-      spirit::rule<scannerT>    top;
+      spirit::rule<scannerT>    crlf;
 
       definition(crlf_parser const &)
       {
         using namespace spirit;
-        top = lexeme_d[ cr_p >> lf_p ];
+        crlf = lexeme_d[ cr_p >> lf_p ];
+
+        BOOST_SPIRIT_DEBUG_NODE(crlf);
       }
 
-      spirit::rule<scannerT> const & start() const { return top; }
+      spirit::rule<scannerT> const & start() const { return crlf; }
     };
   };
 

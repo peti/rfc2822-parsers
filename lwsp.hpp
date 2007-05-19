@@ -25,14 +25,16 @@ namespace rfc2822
     template<typename scannerT>
     struct definition
     {
-      spirit::rule<scannerT>    top;
+      spirit::rule<scannerT>    lwsp;
 
       definition(lwsp_parser const &)
       {
-        top = spirit::lexeme_d[ +( !crlf_p >> wsp_p ) ];
+        lwsp = spirit::lexeme_d[ +( !crlf_p >> wsp_p ) ];
+
+        BOOST_SPIRIT_DEBUG_NODE(lwsp);
       }
 
-      spirit::rule<scannerT> const & start() const { return top; }
+      spirit::rule<scannerT> const & start() const { return lwsp; }
     };
   };
 

@@ -24,12 +24,12 @@ namespace rfc2822
     template<typename scannerT>
     struct definition
     {
-      spirit::rule<scannerT>    top;
+      spirit::rule<scannerT>    atom;
 
       definition(atom_parser const &)
       {
         using namespace spirit;
-        top =
+        atom =
           lexeme_d
           [
             +( anychar_p - ( chset_p(" \x7F()<>@,;:\\\".[]")
@@ -37,9 +37,11 @@ namespace rfc2822
                            )
              )
           ];
+
+        BOOST_SPIRIT_DEBUG_NODE(atom);
       }
 
-      spirit::rule<scannerT> const & start() const { return top; }
+      spirit::rule<scannerT> const & start() const { return atom; }
     };
   };
 

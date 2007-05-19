@@ -24,15 +24,16 @@ namespace rfc2822
     template<typename scannerT>
     struct definition
     {
-      spirit::rule<scannerT>  top;
+      spirit::rule<scannerT>  quoted_pair;
 
       definition(quoted_pair_parser const &)
       {
         using namespace spirit;
-        top = lexeme_d[ ch_p('\\') >> anychar_p ];
+        quoted_pair = lexeme_d[ ch_p('\\') >> anychar_p ];
+        BOOST_SPIRIT_DEBUG_NODE(quoted_pair);
       }
 
-      spirit::rule<scannerT> const & start() const { return top; }
+      spirit::rule<scannerT> const & start() const { return quoted_pair; }
     };
   };
 

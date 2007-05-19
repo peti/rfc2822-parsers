@@ -25,22 +25,24 @@ namespace rfc2822
     template<typename scannerT>
     struct definition
     {
-      spirit::rule<scannerT>    top;
+      spirit::rule<scannerT>    quoted_string;
       spirit::subrule<0>        qstring;
       spirit::subrule<1>        qtext;
 
       definition(quoted_string_parser const &)
       {
         using namespace spirit;
-        top =
+        quoted_string =
           lexeme_d
           [ qstring  = ch_p('"') >> *( qtext | quoted_pair_p ) >> '"'
           , qtext    = +( anychar_p - (ch_p('"') | '\\' | cr_p) | lwsp_p )
 
           ];
+
+        BOOST_SPIRIT_DEBUG_NODE(quoted_string);
       }
 
-      spirit::rule<scannerT> const & start() const { return top; }
+      spirit::rule<scannerT> const & start() const { return quoted_string; }
     };
   };
 
