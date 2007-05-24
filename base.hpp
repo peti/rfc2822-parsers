@@ -278,4 +278,23 @@ namespace rfc2822
   extern struct quoted_pair_parser const quoted_pair_p;
 }
 
+#define PP_PHOENIX_DEFINE_RECORD_ACCESSOR(NAME, TYPE, ACC)      \
+  struct NAME ## _impl                                          \
+  {                                                             \
+    template <typename Record>                                  \
+    struct result                                               \
+    {                                                           \
+      typedef TYPE type;                                        \
+    };                                                          \
+    template <typename Record>                                  \
+    typename result<Record>::type operator() (Record & r) const \
+    {                                                           \
+      return r.ACC;                                             \
+    }                                                           \
+  };                                                            \
+  phoenix::function<NAME ## _impl> const NAME = NAME ## _impl()
+
+#define PP_PHOENIX_DEFINE_TRIVIAL_RECORD_ACCESSOR(NAME, TYPE)   \
+  PP_PHOENIX_DEFINE_RECORD_ACCESSOR(NAME, TYPE, NAME)
+
 #endif // RFC2822_BASE_HPP_INCLUDED

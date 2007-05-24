@@ -27,6 +27,17 @@ namespace rfc2822
     int tzoffset;
   };
 
+  PP_PHOENIX_DEFINE_TRIVIAL_RECORD_ACCESSOR(tm_sec,   int &);
+  PP_PHOENIX_DEFINE_TRIVIAL_RECORD_ACCESSOR(tm_min,   int &);
+  PP_PHOENIX_DEFINE_TRIVIAL_RECORD_ACCESSOR(tm_hour,  int &);
+  PP_PHOENIX_DEFINE_TRIVIAL_RECORD_ACCESSOR(tm_mday,  int &);
+  PP_PHOENIX_DEFINE_TRIVIAL_RECORD_ACCESSOR(tm_mon,   int &);
+  PP_PHOENIX_DEFINE_TRIVIAL_RECORD_ACCESSOR(tm_year,  int &);
+  PP_PHOENIX_DEFINE_TRIVIAL_RECORD_ACCESSOR(tm_wday,  int &);
+  PP_PHOENIX_DEFINE_TRIVIAL_RECORD_ACCESSOR(tm_yday,  int &);
+  PP_PHOENIX_DEFINE_TRIVIAL_RECORD_ACCESSOR(tm_isdst, int &);
+  PP_PHOENIX_DEFINE_TRIVIAL_RECORD_ACCESSOR(tzoffset, int &);
+
   struct timestamp_closure : public spirit::closure<timestamp_closure, timestamp>
   {
     member1 val;
@@ -89,15 +100,13 @@ namespace rfc2822
         using namespace spirit;
         using namespace phoenix;
 
-#define ASSIGN(member, what) bind(&timestamp::member)(self.val) = what
-
         top =
           (
             date_time = !(    lexeme_d
                               [
                                 nocase_d
                                   [
-                                    wday_p [ASSIGN(tm_wday, arg1)]
+                                    wday_p [tm_wday(self.val) = arg1]
                                   ]
                               ]
                               >> ','
@@ -106,51 +115,48 @@ namespace rfc2822
                          >> !time
                          >> !zone,
 
-            date      = uint_p [ASSIGN(tm_mday, arg1)]
+            date      = uint_p [tm_mday(self.val) = arg1]
                         >> lexeme_d
                            [
                                nocase_d
                                [
-                                   month_p [ASSIGN(tm_mon, arg1)]
+                                   month_p [tm_mon(self.val) = arg1]
                                ]
                            ]
                         >> (    limit_d(0u, 99u)
                                 [
-                                    uint_p [ASSIGN(tm_year, arg1)]
+                                    uint_p [tm_year(self.val) = arg1]
                                 ]
                            |    min_limit_d(1900u)
                                 [
-                                    uint_p [ASSIGN(tm_year, arg1 - 1900)]
+                                    uint_p [tm_year(self.val) = arg1 - 1900]
                                 ]
                            ),
 
-            time      = uint_p [ASSIGN(tm_hour, arg1)]
+            time      = uint_p [tm_hour(self.val) = arg1]
                         >> ':'
-                        >> uint_p [ASSIGN(tm_min, arg1)]
+                        >> uint_p [tm_min(self.val) = arg1]
                         >> !(
                                 ':'
-                                >> uint_p [ASSIGN(tm_sec, arg1)]
+                                >> uint_p [tm_sec(self.val) = arg1]
                             ),
 
             zone      = ch_p('+')  >>  uint4_p
                                        [
-                                           ASSIGN(tzoffset,
-                                                  ((arg1 / 100) * 60 + (arg1 % 100)) * 60)
+                                         tzoffset(self.val) = ((arg1 / 100) * 60 + (arg1 % 100)) * 60
                                        ]
                       | ch_p('-')  >>  uint4_p
                                        [
-                                           ASSIGN(tzoffset,
-                                                  -((arg1 / 100) * 60 + (arg1 % 100)) * 60)
+                                         tzoffset(self.val) = -((arg1 / 100) * 60 + (arg1 % 100)) * 60
                                        ]
                       | lexeme_d
                         [
                             nocase_d
                             [
-                                timezone_p [ASSIGN(tzoffset, arg1)]
+                                timezone_p [tzoffset(self.val) = arg1]
                             ]
                         ]
           );
-#undef ASSIGN
       }
 
       spirit::rule<scannerT> const & start() const { return top; }
