@@ -62,7 +62,7 @@ namespace rfc2822
     template<typename scannerT>
     struct definition
     {
-      definition(const domain_literal_parser& self)
+      definition(domain_literal_parser const & self)
       {
         using namespace spirit;
         using namespace phoenix;
@@ -108,7 +108,7 @@ namespace rfc2822
     template<typename scannerT>
     struct definition
     {
-      definition(const domain_parser& self)
+      definition(domain_parser const & self)
       {
         using namespace spirit;
         using namespace phoenix;
@@ -122,7 +122,7 @@ namespace rfc2822
         BOOST_SPIRIT_DEBUG_NODE(sub_domain);
       }
 
-      const spirit::rule<scannerT>& start() const { return domain; }
+      spirit::rule<scannerT> const & start() const { return domain; }
 
       spirit::rule<scannerT> domain;
       spirit::rule<scannerT> sub_domain;
@@ -141,7 +141,7 @@ namespace rfc2822
     {
       spirit::rule<scannerT>    addr_spec;
 
-      definition(const addr_spec_parser& self)
+      definition(addr_spec_parser const & self)
       {
         using namespace spirit;
         using namespace phoenix;
@@ -173,7 +173,7 @@ namespace rfc2822
       spirit::rule<scannerT> route;
       spirit::rule<scannerT> hop;
 
-      definition(const route_addr_parser& self)
+      definition(route_addr_parser const & self)
       {
         using namespace spirit;
         using namespace phoenix;
@@ -219,7 +219,7 @@ namespace rfc2822
     {
       spirit::rule<scannerT> mailbox;
 
-      definition(const mailbox_parser& self)
+      definition(mailbox_parser const & self)
       {
         using namespace spirit;
         using namespace phoenix;
