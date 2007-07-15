@@ -1,6 +1,7 @@
 # rfc2822/Jamfile.v2
 
 test-suite rfc2822_tests
-  : [ run test-address.cpp /boost//unit_test_framework ]
-    [ run test-date.cpp    /boost//unit_test_framework ]
+  : [ run test-address.cpp                                      /boost//unit_test_framework ]
+    [ run test-date.cpp                                         /boost//unit_test_framework ]
+    [ run test-linkage.cpp test-linkage1.cpp test-linkage2.cpp  /boost//unit_test_framework ]
   ;
