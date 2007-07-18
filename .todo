@@ -1,5 +1,5 @@
 <todo version="0.1.19">
-    <note priority="high" time="1179187623">
+    <note priority="high" time="1179187623" done="1184794519">
         Move files into a hierarchy.
 
         The test_xxx.cpp programs include "rfc2822/xxx.hpp", but
@@ -11,6 +11,9 @@
         |         / test / ...       Regression tests
         |         / build / ...      Jamfiles, Makefiles, etc.
         |         / doc / Doxyfile
+        <comment>
+            done
+        </comment>
     </note>
     <note priority="medium" time="1179187466">
         Prefer phoenix actors of pre-defined spirit actors.
