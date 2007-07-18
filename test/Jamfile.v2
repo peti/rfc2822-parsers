@@ -5,9 +5,9 @@ project
   ;
 
 test-suite rfc2822_tests
-  : [ run test-address.cpp                                      rfc2822 unit_test_framework ]
-    [ run test-date.cpp                                         rfc2822 unit_test_framework ]
-    [ run test-linkage.cpp test-linkage1.cpp test-linkage2.cpp  rfc2822 unit_test_framework ]
+  : [ run address.cpp                            rfc2822 boost_unit_test ]
+    [ run date.cpp                               rfc2822 boost_unit_test ]
+    [ run linkage.cpp linkage1.cpp linkage2.cpp  rfc2822 boost_unit_test ]
   ;
 
 alias rfc2822         : /rfc2822//rfc2822 ;
