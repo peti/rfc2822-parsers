@@ -82,7 +82,7 @@ namespace rfc2822
    *  \return A \c std::tm date stamp.
    */
   extern struct date_parser const date_p;
-  /// \example test-date.cpp Parse e-mail <code>Date:</code> header.
+  /// \example date.cpp Parse e-mail <code>Date:</code> header.
 
   /**
    *  \brief Match <code>name-addr / addr-spec</code>.
@@ -99,7 +99,7 @@ namespace rfc2822
    *  \return A \c std::string containing the parsed, canonic address.
    */
   extern struct mailbox_parser const mailbox_p;
-  /// \example test-address.cpp Parse e-mail addresses.
+  /// \example address.cpp Parse e-mail addresses.
 
   /**
    *  \brief Match <code>local_part_p "@" domain_p</code>.
