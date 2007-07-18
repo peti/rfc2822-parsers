@@ -45,8 +45,6 @@ namespace rfc2822
     };
   };
 
-  extern quoted_string_parser const    quoted_string_p;
-
 } // rfc2822
 
 #endif // RFC2822_QUOTED_STRING_HPP_INCLUDED

@@ -10,36 +10,33 @@
  * provided the copyright notice and this notice are preserved.
  */
 
-#ifndef RFC2822_WORD_HPP_INCLUDED
-#define RFC2822_WORD_HPP_INCLUDED
+#ifndef RFC2822_QUOTED_PAIR_HPP_INCLUDED
+#define RFC2822_QUOTED_PAIR_HPP_INCLUDED
 
-#include "quoted-string.hpp"
-#include "atom.hpp"
+#include "base.hpp"
 
 namespace rfc2822
 {
-  struct word_parser : public spirit::grammar<word_parser>
+  struct quoted_pair_parser : public spirit::grammar<quoted_pair_parser>
   {
-    word_parser() { }
+    quoted_pair_parser() { }
 
     template<typename scannerT>
     struct definition
     {
-      spirit::rule<scannerT>    word;
+      spirit::rule<scannerT>  quoted_pair;
 
-      definition(word_parser const &)
+      definition(quoted_pair_parser const &)
       {
-        word = atom_p | quoted_string_p;
-        BOOST_SPIRIT_DEBUG_NODE(word);
-
+        using namespace spirit;
+        quoted_pair = lexeme_d[ ch_p('\\') >> anychar_p ];
+        BOOST_SPIRIT_DEBUG_NODE(quoted_pair);
       }
 
-      spirit::rule<scannerT> const & start() const { return word; }
+      spirit::rule<scannerT> const & start() const { return quoted_pair; }
     };
   };
 
-  extern word_parser const     word_p;
-
 } // rfc2822
 
-#endif // RFC2822_WORD_HPP_INCLUDED
+#endif // RFC2822_QUOTED_PAIR_HPP_INCLUDED

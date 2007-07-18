@@ -1,0 +1,20 @@
+# rfc2822/src/Jamfile.v2
+
+project /ioxx
+  : requirements        <use>/boost <include>..
+  :
+  : usage-requirements  <use>/boost <include>..
+  ;
+
+lib rfc2822
+  : address.cpp
+    atom.cpp
+    comment.cpp
+    crlf.cpp
+    date.cpp
+    lwsp.cpp
+    quoted-pair.cpp
+    quoted-string.cpp
+    skipper.cpp
+    word.cpp
+  ;

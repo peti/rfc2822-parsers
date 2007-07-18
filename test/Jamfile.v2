@@ -1,0 +1,14 @@
+# rfc2822/test/Jamfile.v2
+
+project
+  : requirements <use>/rfc2822
+  ;
+
+test-suite rfc2822_tests
+  : [ run test-address.cpp                                      rfc2822 unit_test_framework ]
+    [ run test-date.cpp                                         rfc2822 unit_test_framework ]
+    [ run test-linkage.cpp test-linkage1.cpp test-linkage2.cpp  rfc2822 unit_test_framework ]
+  ;
+
+alias rfc2822         : /rfc2822//rfc2822 ;
+alias boost_unit_test : /boost//unit_test_framework ;

@@ -10,34 +10,40 @@
  * provided the copyright notice and this notice are preserved.
  */
 
-#ifndef RFC2822_SKIPPER_HPP_INCLUDED
-#define RFC2822_SKIPPER_HPP_INCLUDED
+#ifndef RFC2822_COMMENT_HPP_INCLUDED
+#define RFC2822_COMMENT_HPP_INCLUDED
 
 #include "lwsp.hpp"
-#include "comment.hpp"
+#include "quoted-pair.hpp"
 
 namespace rfc2822
 {
-  struct skipper : public spirit::grammar<skipper>
+  struct comment_parser : public spirit::grammar<comment_parser>
   {
-    skipper() { }
+    comment_parser() { }
 
     template<typename scannerT>
     struct definition
     {
       spirit::rule<scannerT>    top;
+      spirit::subrule<0>        comment;
+      spirit::subrule<1>        ctext;
 
-      definition(skipper const &)
+      definition(comment_parser const &)
       {
-        top = lwsp_p | comment_p;
+        using namespace spirit;
+        top
+          = lexeme_d
+            [ comment = ch_p('(') >> *( lwsp_p | ctext | quoted_pair_p | comment ) >> ')'
+            , ctext   = anychar_p - (chset_p("()\\") | cr_p)
+            ]
+          ;
       }
 
       spirit::rule<scannerT> const & start() const { return top; }
     };
   };
 
-  extern skipper const   skipper_p;
-
 } // rfc2822
 
-#endif // RFC2822_SKIPPER_HPP_INCLUDED
+#endif // RFC2822_COMMENT_HPP_INCLUDED

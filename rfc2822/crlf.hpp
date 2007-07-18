@@ -10,35 +10,34 @@
  * provided the copyright notice and this notice are preserved.
  */
 
-#ifndef RFC2822_QUOTED_PAIR_HPP_INCLUDED
-#define RFC2822_QUOTED_PAIR_HPP_INCLUDED
+#ifndef RFC2822_CRLF_HPP_INCLUDED
+#define RFC2822_CRLF_HPP_INCLUDED
 
 #include "base.hpp"
 
 namespace rfc2822
 {
-  struct quoted_pair_parser : public spirit::grammar<quoted_pair_parser>
+  struct crlf_parser : public spirit::grammar<crlf_parser>
   {
-    quoted_pair_parser() { }
+    crlf_parser() { }
 
     template<typename scannerT>
     struct definition
     {
-      spirit::rule<scannerT>  quoted_pair;
+      spirit::rule<scannerT>    crlf;
 
-      definition(quoted_pair_parser const &)
+      definition(crlf_parser const &)
       {
         using namespace spirit;
-        quoted_pair = lexeme_d[ ch_p('\\') >> anychar_p ];
-        BOOST_SPIRIT_DEBUG_NODE(quoted_pair);
+        crlf = lexeme_d[ cr_p >> lf_p ];
+
+        BOOST_SPIRIT_DEBUG_NODE(crlf);
       }
 
-      spirit::rule<scannerT> const & start() const { return quoted_pair; }
+      spirit::rule<scannerT> const & start() const { return crlf; }
     };
   };
 
-  extern quoted_pair_parser const      quoted_pair_p;
-
 } // rfc2822
 
-#endif // RFC2822_QUOTED_PAIR_HPP_INCLUDED
+#endif // RFC2822_CRLF_HPP_INCLUDED

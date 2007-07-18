@@ -12,14 +12,4 @@
 
 #include "rfc2822/address.hpp"
 
-rfc2822::local_part_parser const rfc2822::local_part_p;
-
-rfc2822::domain_literal_parser const rfc2822::domain_literal_p;
-
-rfc2822::domain_parser const rfc2822::domain_p;
-
-rfc2822::addr_spec_parser const rfc2822::addr_spec_p;
-
 rfc2822::route_addr_parser const rfc2822::route_addr_p;
-
-rfc2822::mailbox_parser const rfc2822::mailbox_p;

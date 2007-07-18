@@ -1,20 +1,4 @@
 # rfc2822/Jamfile.v2
 
-lib rfc2822
-  : address.cpp
-    atom.cpp
-    comment.cpp
-    crlf.cpp
-    date.cpp
-    lwsp.cpp
-    quoted-pair.cpp
-    quoted-string.cpp
-    skipper.cpp
-    word.cpp
-  ;
-
-test-suite rfc2822_tests
-  : [ run test-address.cpp                                      rfc2822 /boost//unit_test_framework ]
-    [ run test-date.cpp                                         rfc2822 /boost//unit_test_framework ]
-    [ run test-linkage.cpp test-linkage1.cpp test-linkage2.cpp  rfc2822 /boost//unit_test_framework ]
-  ;
+build-project src  ;
+build-project test ;

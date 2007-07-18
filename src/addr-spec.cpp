@@ -10,12 +10,6 @@
  * provided the copyright notice and this notice are preserved.
  */
 
-#include "rfc2822/date.hpp"
+#include "rfc2822/address.hpp"
 
-rfc2822::month_parser const rfc2822::month_p;
-
-rfc2822::wday_parser const rfc2822::wday_p;
-
-rfc2822::timezone_parser const rfc2822::timezone_p;
-
-rfc2822::date_parser const rfc2822::date_p;
+rfc2822::addr_spec_parser const rfc2822::addr_spec_p;

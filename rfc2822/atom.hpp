@@ -45,8 +45,6 @@ namespace rfc2822
     };
   };
 
-  extern atom_parser const     atom_p;
-
 } // rfc2822
 
 #endif // RFC2822_ATOM_HPP_INCLUDED

@@ -10,36 +10,34 @@
  * provided the copyright notice and this notice are preserved.
  */
 
-#ifndef RFC2822_CRLF_HPP_INCLUDED
-#define RFC2822_CRLF_HPP_INCLUDED
+#ifndef RFC2822_WORD_HPP_INCLUDED
+#define RFC2822_WORD_HPP_INCLUDED
 
-#include "base.hpp"
+#include "quoted-string.hpp"
+#include "atom.hpp"
 
 namespace rfc2822
 {
-  struct crlf_parser : public spirit::grammar<crlf_parser>
+  struct word_parser : public spirit::grammar<word_parser>
   {
-    crlf_parser() { }
+    word_parser() { }
 
     template<typename scannerT>
     struct definition
     {
-      spirit::rule<scannerT>    crlf;
+      spirit::rule<scannerT>    word;
 
-      definition(crlf_parser const &)
+      definition(word_parser const &)
       {
-        using namespace spirit;
-        crlf = lexeme_d[ cr_p >> lf_p ];
+        word = atom_p | quoted_string_p;
+        BOOST_SPIRIT_DEBUG_NODE(word);
 
-        BOOST_SPIRIT_DEBUG_NODE(crlf);
       }
 
-      spirit::rule<scannerT> const & start() const { return crlf; }
+      spirit::rule<scannerT> const & start() const { return word; }
     };
   };
 
-  extern crlf_parser const     crlf_p;
-
 } // rfc2822
 
-#endif // RFC2822_CRLF_HPP_INCLUDED
+#endif // RFC2822_WORD_HPP_INCLUDED

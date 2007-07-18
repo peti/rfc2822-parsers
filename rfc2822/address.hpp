@@ -52,9 +52,6 @@ namespace rfc2822
     };
   };
 
-  extern local_part_parser const local_part_p;
-
-
   struct domain_literal_parser : public spirit::grammar<domain_literal_parser, string_closure::context_t>
   {
     domain_literal_parser() { }
@@ -99,9 +96,6 @@ namespace rfc2822
     };
   };
 
-  extern domain_literal_parser const domain_literal_p;
-
-
   struct domain_parser : public spirit::grammar<domain_parser, string_closure::context_t>
   {
     domain_parser() { }
@@ -130,9 +124,6 @@ namespace rfc2822
     };
   };
 
-  extern domain_parser const domain_p;
-
-
   struct addr_spec_parser : public spirit::grammar<addr_spec_parser, string_closure::context_t>
   {
     addr_spec_parser() { }
@@ -159,9 +150,6 @@ namespace rfc2822
       spirit::rule<scannerT> const & start() const { return addr_spec; }
     };
   };
-
-  extern addr_spec_parser const  addr_spec_p;
-
 
   struct route_addr_parser : public spirit::grammar<route_addr_parser, string_closure::context_t>
   {
@@ -208,9 +196,6 @@ namespace rfc2822
     };
   };
 
-  extern route_addr_parser const       route_addr_p;
-
-
   struct mailbox_parser : public spirit::grammar<mailbox_parser, string_closure::context_t>
   {
     mailbox_parser() { }
@@ -235,8 +220,6 @@ namespace rfc2822
       spirit::rule<scannerT> const & start() const { return mailbox; }
     };
   };
-
-  extern mailbox_parser const mailbox_p;
 
 } // rfc2822
 
