@@ -38,7 +38,7 @@ namespace rfc2822
     };
   };
 
-  word_parser const     word_p;
+  extern word_parser const     word_p;
 
 } // rfc2822
 

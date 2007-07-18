@@ -45,7 +45,7 @@ namespace rfc2822
     };
   };
 
-  atom_parser const     atom_p;
+  extern atom_parser const     atom_p;
 
 } // rfc2822
 

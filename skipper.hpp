@@ -36,7 +36,7 @@ namespace rfc2822
     };
   };
 
-  skipper const   skipper_p;
+  extern skipper const   skipper_p;
 
 } // rfc2822
 

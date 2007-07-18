@@ -37,7 +37,7 @@ namespace rfc2822
     };
   };
 
-  quoted_pair_parser const      quoted_pair_p;
+  extern quoted_pair_parser const      quoted_pair_p;
 
 } // rfc2822
 

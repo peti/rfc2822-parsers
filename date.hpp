@@ -53,7 +53,7 @@ namespace rfc2822
     }
   };
 
-  month_parser const    month_p;
+  extern month_parser const    month_p;
 
   struct wday_parser : public spirit::symbols<int>
   {
@@ -64,7 +64,7 @@ namespace rfc2822
     }
   };
 
-  wday_parser const     wday_p;
+  extern wday_parser const     wday_p;
 
   struct timezone_parser : public spirit::symbols<int>
   {
@@ -79,7 +79,7 @@ namespace rfc2822
     }
   };
 
-  timezone_parser const timezone_p;
+  extern timezone_parser const timezone_p;
 
   struct date_parser : public spirit::grammar<date_parser, timestamp_closure::context_t>
   {
@@ -163,7 +163,7 @@ namespace rfc2822
     };
   };
 
-  date_parser const     date_p;
+  extern date_parser const     date_p;
 
 } // rfc2822
 

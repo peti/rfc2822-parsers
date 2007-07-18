@@ -38,7 +38,7 @@ namespace rfc2822
     };
   };
 
-  crlf_parser const     crlf_p;
+  extern crlf_parser const     crlf_p;
 
 } // rfc2822
 
