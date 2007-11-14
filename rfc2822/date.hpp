@@ -27,6 +27,11 @@ namespace rfc2822
     int tzoffset;
   };
 
+  inline std::ostream & operator<< (std::ostream & os, timestamp const & ts)
+  {
+    return os << std::asctime(&ts);
+  }
+
   PP_PHOENIX_DEFINE_TRIVIAL_RECORD_ACCESSOR(tm_sec,   int &);
   PP_PHOENIX_DEFINE_TRIVIAL_RECORD_ACCESSOR(tm_min,   int &);
   PP_PHOENIX_DEFINE_TRIVIAL_RECORD_ACCESSOR(tm_hour,  int &);
