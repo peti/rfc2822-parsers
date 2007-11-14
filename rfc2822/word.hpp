@@ -31,7 +31,6 @@ namespace rfc2822
       {
         word = atom_p | quoted_string_p;
         BOOST_SPIRIT_DEBUG_NODE(word);
-
       }
 
       spirit::rule<scannerT> const & start() const { return word; }
