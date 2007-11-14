@@ -94,11 +94,16 @@ BOOST_AUTO_TEST_CASE( test_rfc2822_address_parser )
   rc = parse_route_addr(result, "< @yahoo.org,,: normal . address @ example\r\n\t.org >");
   BOOST_REQUIRE(!rc);
 
-
   // Test mailbox parser
+
+  rc = parse_mailbox(result, "< normal . address @ example\r\n\t.org >");
+  BOOST_REQUIRE(rc); BOOST_REQUIRE_EQUAL(result, "<normal.address@example.org>");
 
   rc = parse_mailbox(result, " Peter Simons < normal . address @ example\r\n\t.org >");
   BOOST_REQUIRE(rc); BOOST_REQUIRE_EQUAL(result, "<normal.address@example.org>");
+
+  rc = parse_mailbox(result, " Dr. Foo Bar < foo . bar @ example\r\n\t.org >");
+  BOOST_REQUIRE(rc); BOOST_REQUIRE_EQUAL(result, "<foo.bar@example.org>");
 
   rc = parse_mailbox(result, "normal . address @ example\r\n\t.org (Peter Simnos)");
   BOOST_REQUIRE(rc); BOOST_REQUIRE_EQUAL(result, "normal.address@example.org");

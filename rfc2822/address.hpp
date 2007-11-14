@@ -203,6 +203,7 @@ namespace rfc2822
     template<typename scannerT>
     struct definition
     {
+      spirit::rule<scannerT> phrase;
       spirit::rule<scannerT> mailbox;
 
       definition(mailbox_parser const & self)
@@ -210,10 +211,13 @@ namespace rfc2822
         using namespace spirit;
         using namespace phoenix;
 
-        mailbox = (   *word_p >> route_addr_p   [self.val += arg1]
+        phrase  = word_p >> *( word_p | '.' );
+
+        mailbox = (   !phrase >> route_addr_p   [self.val += arg1]
                   |   addr_spec_p               [self.val += arg1]
                   );
 
+        BOOST_SPIRIT_DEBUG_NODE(phrase);
         BOOST_SPIRIT_DEBUG_NODE(mailbox);
       }
 
