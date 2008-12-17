@@ -18,6 +18,7 @@
 #include <boost/spirit/symbols/symbols.hpp>
 #include <boost/spirit/phoenix/binders.hpp>
 #include <boost/compatibility/cpp_c_headers/ctime>
+#include <boost/compatibility/cpp_c_headers/cstring>
 
 namespace rfc2822
 {
