@@ -35,7 +35,7 @@ namespace rfc2822
         quoted_string =
           lexeme_d
           [ qstring  = ch_p('"') >> *( qtext | quoted_pair_p ) >> '"'
-          , qtext    = +( anychar_p - (ch_p('"') | '\\' | cr_p) | lwsp_p )
+          , qtext    = +( (anychar_p - (ch_p('"') | '\\' | cr_p)) | lwsp_p )
           ];
 
         BOOST_SPIRIT_DEBUG_NODE(quoted_string);
