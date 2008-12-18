@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006-2007 Peter Simons <simons@cryp.to>
+ * Copyright (c) 2006-2008 Peter Simons <simons@cryp.to>
  *
  * This software is provided 'as-is', without any express or
  * implied warranty. In no event will the authors be held liable
@@ -15,7 +15,7 @@
 
 #include "word.hpp"
 #include <string>
-#include <boost/spirit/attribute/closure.hpp>
+#include <boost/spirit/include/classic_closure.hpp>
 
 namespace rfc2822
 {

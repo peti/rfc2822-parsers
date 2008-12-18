@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006-2007 Peter Simons <simons@cryp.to>
+ * Copyright (c) 2006-2008 Peter Simons <simons@cryp.to>
  *
  * This software is provided 'as-is', without any express or
  * implied warranty. In no event will the authors be held liable
@@ -21,8 +21,8 @@
  *
  *  \see Boost Spirit Homepage: http://spirit.sf.net/
  *  \see IETF Request for Comment #2822: http://www.faqs.org/rfcs/rfc2822.html
- *  \see Librfc2822 snapshot: <a href="http://git.cryp.to/?p=librfc2822;a=snapshot;h=HEAD">librfc2822-HEAD.tar.gz</a>
- *       (<a href="http://git.cryp.to/?p=librfc2822">Change History</a>)
+ *  \see Librfc2822 snapshot: <a href="http://git.cryp.to/rfc2822?a=snapshot;h=HEAD">librfc2822-HEAD.tar.gz</a>
+ *       (<a href="http://git.cryp.to/rfc2822">Change History</a>)
  *  \see Librfc822 Legacy Release: <a href="http://cryp.to/librfc2822/librfc822-1.2.tar.gz">librfc822-1.2.tar.gz</a>
  *  \see RFC2822 Parsers for Haskell: http://cryp.to/hsemail/
  */
@@ -30,8 +30,8 @@
 #ifndef RFC2822_BASE_HPP_INCLUDED
 #define RFC2822_BASE_HPP_INCLUDED
 
-#include <boost/spirit.hpp>
-#include <boost/spirit/utility/chset.hpp>
+#include <boost/spirit/include/classic.hpp>
+#include <boost/spirit/include/classic_chset.hpp>
 
 /**
  *  \brief Internet Message Format Parsers
@@ -54,7 +54,7 @@
  */
 namespace rfc2822
 {
-  namespace spirit = boost::spirit;
+  namespace spirit = boost::spirit::classic;
 
   spirit::chlit<> const ht_p(9);           ///< \brief Match <code>'\\t'</code>.
   spirit::chlit<> const lf_p(10);          ///< \brief Match <code>'\\n'</code>.

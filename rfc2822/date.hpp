@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006-2007 Peter Simons <simons@cryp.to>
+ * Copyright (c) 2006-2008 Peter Simons <simons@cryp.to>
  *
  * This software is provided 'as-is', without any express or
  * implied warranty. In no event will the authors be held liable
@@ -14,9 +14,9 @@
 #define RFC2822_DATE_HPP_INCLUDED
 
 #include "base.hpp"
-#include <boost/spirit/attribute/closure.hpp>
-#include <boost/spirit/symbols/symbols.hpp>
-#include <boost/spirit/phoenix/binders.hpp>
+#include <boost/spirit/include/classic_closure.hpp>
+#include <boost/spirit/include/classic_symbols.hpp>
+#include <boost/spirit/include/phoenix1_binders.hpp>
 #include <boost/compatibility/cpp_c_headers/ctime>
 #include <boost/compatibility/cpp_c_headers/cstring>
 
