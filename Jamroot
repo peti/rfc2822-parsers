@@ -3,4 +3,5 @@
 build-project src  ;
 build-project test ;
 
-use-project /boost : [ modules.peek : BOOST_ROOT ] ;
+use-project /rfc2822 : src ;
+use-project /boost   : [ modules.peek : BOOST_ROOT ] ;
