@@ -35,7 +35,7 @@ namespace rfc2822
   using namespace boost::spirit::arg_names;
 
   template <typename Iterator>
-  struct skip_parser : grammar<Iterator>
+  struct skip_parser : public grammar<Iterator>
   {
     skip_parser() : skip_parser::base_type(top)
     {
@@ -50,27 +50,35 @@ namespace rfc2822
     rule<Iterator> crlf, wsp, lwsp, ctext, quoted_pair, comment, top;
   };
 
-  struct month_parser : public symbols<char, int>
+  template <typename Iterator>
+  struct month_parser : public grammar<Iterator, int ()>
   {
-    month_parser()
+    month_parser() : month_parser::base_type(top)
     {
-      add ("jan", 0)("feb", 1)("mar", 2)("apr", 3)
-          ("may", 4)("jun", 5)("jul", 6)("aug", 7)
-          ("sep", 8)("oct", 9)("nov", 10)("dec", 11);
+      month.add ("jan", 0)("feb", 1)("mar", 2)("apr", 3)
+                ("may", 4)("jun", 5)("jul", 6)("aug", 7)
+                ("sep", 8)("oct", 9)("nov", 10)("dec", 11);
+      top %= no_case[month];
     }
-  } const month;
-
-  struct wday_parser : public symbols<char, int>
-  {
-    wday_parser()
-    {
-      add ("sun", 0)("mon", 1)("tue", 2)("wed", 3)
-          ("thu", 4)("fri", 5)("sat", 6);
-    }
-  } const wday;
+    symbols<char, int> month;
+    rule<Iterator, int ()> top;
+  };
 
   template <typename Iterator>
-  struct timezone_parser : grammar<Iterator, int (), locals<int> >
+  struct weekday_parser : public grammar<Iterator, int ()>
+  {
+    weekday_parser() : weekday_parser::base_type(top)
+    {
+      weekday.add ("sun", 0)("mon", 1)("tue", 2)("wed", 3)
+                  ("thu", 4)("fri", 5)("sat", 6);
+      top %= no_case[weekday];
+    }
+    symbols<char, int> weekday;
+    rule<Iterator, int ()> top;
+  };
+
+  template <typename Iterator>
+  struct timezone_parser : public grammar<Iterator, int (), locals<int> >
   {
     timezone_parser() : timezone_parser::base_type(top)
     {
@@ -102,7 +110,7 @@ namespace rfc2822
   };
 
   template <typename Iterator, typename Skipper = skip_parser<Iterator> >
-  struct datetime_parser : grammar<Iterator, datetime (), Skipper>
+  struct datetime_parser : public grammar<Iterator, datetime (), Skipper>
   {
     datetime_parser() : datetime_parser::base_type(top)
     {
@@ -110,11 +118,11 @@ namespace rfc2822
 
       top
         = eps                           [ _val = construct<datetime>() ]
-        >> -(  no_case[wday]            [ bind(&datetime::tm_wday, _val) = _1 ]
+        >> -(  lexeme[weekday]          [ bind(&datetime::tm_wday, _val) = _1 ]
             >> ','
             )
         >> int_in_range(1,31)           [ bind(&datetime::tm_mday, _val) = _1 ]
-        >> no_case[month]               [ bind(&datetime::tm_mon, _val) = _1 ]
+        >> lexeme[month]                [ bind(&datetime::tm_mon, _val) = _1 ]
         >> int_                         [ bind(&datetime::tm_year, _val) = _1 - 1900 ]
         >> -(  int_in_range(0,24)       [ bind(&datetime::tm_hour, _val) = _1 ]
             >> ':'
@@ -127,6 +135,8 @@ namespace rfc2822
         ;
     }
 
+    weekday_parser<Iterator> weekday;
+    month_parser<Iterator> month;
     timezone_parser<Iterator> timezone;
     rule<Iterator, int (int,int), Skipper> int_in_range;
     rule<Iterator, datetime (), Skipper> top;
