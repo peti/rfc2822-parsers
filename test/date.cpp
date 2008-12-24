@@ -28,6 +28,27 @@
 
 namespace rfc2822
 {
+  struct datetime : public ::tm
+  {
+    datetime() { std::memset(this, 0, sizeof(*this)); tm_isdst = -1; }
+    int tzoffset;
+  };
+
+  inline std::ostream & operator<< (std::ostream & os, datetime const & ts)
+  {
+    char buf[1024];
+    size_t const len( std::strftime(buf, sizeof(buf), "%Y-%m-%d %H:%M:%S", &ts) );
+    BOOST_ASSERT(len > 0); BOOST_ASSERT(len < sizeof(buf));
+    os.write(buf, len);
+    boost::io::ios_all_saver ias(os);
+    int const tzoffset( std::abs(ts.tzoffset) );
+    os << ' ' << (ts.tzoffset >= 0 ? '+' : '-')
+       << std::setfill('0') << std::noshowpos
+       << std::setw(2) << (tzoffset / 3600)
+       << std::setw(2) << ((tzoffset % 3600) / 60);
+    return os;
+  }
+
   using namespace boost::phoenix;
   using namespace boost::spirit;
   using namespace boost::spirit::qi;
@@ -103,12 +124,6 @@ namespace rfc2822
     rule< Iterator, int (), locals<int> > top;
   };
 
-  struct datetime : public ::tm
-  {
-    datetime() { std::memset(this, 0, sizeof(*this)); tm_isdst = -1; }
-    int tzoffset;
-  };
-
   template <typename Iterator, typename Skipper = skip_parser<Iterator> >
   struct datetime_parser : public grammar<Iterator, datetime (), Skipper>
   {
@@ -141,21 +156,6 @@ namespace rfc2822
     rule<Iterator, int (int,int), Skipper> int_in_range;
     rule<Iterator, datetime (), Skipper> top;
   };
-
-  inline std::ostream & operator<< (std::ostream & os, datetime const & ts)
-  {
-    char buf[1024];
-    size_t const len( std::strftime(buf, sizeof(buf), "%Y-%m-%d %H:%M:%S", &ts) );
-    BOOST_ASSERT(len > 0); BOOST_ASSERT(len < sizeof(buf));
-    os.write(buf, len);
-    boost::io::ios_all_saver ias(os);
-    int const tzoffset( std::abs(ts.tzoffset) );
-    os << ' ' << (ts.tzoffset >= 0 ? '+' : '-')
-       << std::setfill('0') << std::noshowpos
-       << std::setw(2) << (tzoffset / 3600)
-       << std::setw(2) << ((tzoffset % 3600) / 60);
-    return os;
-  }
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -233,8 +233,7 @@ void test_datetime_parser(testcase const & test)
 bool init_unit_test()
 {
   using namespace boost::unit_test;
-  using boost::begin;
-  using boost::end;
+  using boost::begin; using boost::end;
   master_test_suite_t & master( framework::master_test_suite() );
   master.p_name.value = "rfc2822 datetime parser";
   master.add(BOOST_PARAM_TEST_CASE(&test_datetime_parser, begin(tests), end(tests)));
