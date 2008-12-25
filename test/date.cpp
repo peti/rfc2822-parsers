@@ -40,7 +40,7 @@ namespace rfc2822
     size_t const len( std::strftime(buf, sizeof(buf), "%Y-%m-%d %H:%M:%S", &ts) );
     BOOST_ASSERT(len > 0); BOOST_ASSERT(len < sizeof(buf));
     os.write(buf, len);
-    boost::io::ios_all_saver ias(os);
+    boost::io::ios_all_saver const ias(os);
     int const tzoffset( std::abs(ts.tzoffset) );
     os << ' ' << (ts.tzoffset >= 0 ? '+' : '-')
        << std::setfill('0') << std::noshowpos
