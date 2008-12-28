@@ -1,7 +1,17 @@
-# rfc2822/Jamroot
+# rfc-parser/Jamroot
 
-build-project src  ;
-build-project test ;
+project
+  : requirements
+      <toolset>gcc:<cxxflags>-ftemplate-depth-256
+  ;
 
-use-project /rfc2822 : src ;
-use-project /boost   : [ modules.peek : BOOST_ROOT ] ;
+import testing ;
+
+test-suite rfc_parser_tests
+  : # [ run address.cpp                            boost_unit_test ]
+    [ run date.cpp                               boost_unit_test ]
+    # [ run linkage.cpp linkage1.cpp linkage2.cpp  boost_unit_test ]
+  ;
+
+use-project /boost    : [ modules.peek : BOOST_ROOT ] ;
+alias boost_unit_test : /boost//unit_test_framework ;
