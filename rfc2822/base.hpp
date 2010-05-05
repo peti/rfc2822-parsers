@@ -21,10 +21,10 @@
  *
  *  \see Boost Spirit Homepage: http://spirit.sf.net/
  *  \see IETF Request for Comment #2822: http://www.faqs.org/rfcs/rfc2822.html
- *  \see Librfc2822 snapshot: <a href="http://git.cryp.to/rfc2822?a=snapshot;h=HEAD">librfc2822-HEAD.tar.gz</a>
+ *  \see Librfc2822 snapshot: <a href="http://git.cryp.to/rfc2822?a=snapshot;h=HEAD">rfc2822-HEAD.tar.gz</a>
  *       (<a href="http://git.cryp.to/rfc2822">Change History</a>)
  *  \see Librfc822 Legacy Release: <a href="http://cryp.to/librfc2822/librfc822-1.2.tar.gz">librfc822-1.2.tar.gz</a>
- *  \see RFC2822 Parsers for Haskell: http://cryp.to/hsemail/
+ *  \see RFC2822 Parsers for Haskell: http://hackage.haskell.org/package/hsemail
  */
 
 #ifndef RFC2822_BASE_HPP_INCLUDED
